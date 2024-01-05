@@ -2,7 +2,7 @@ const { response } = require('express');
 const urlSchema = require('../models/urlModel');
 const shortUUID = require('short-uuid');
 const generateShortUrl = async (req, res) => {
-  const { url, id } = req.body;
+  const { url, userId } = req.body;
   try {
     let existingUrl = await urlSchema.findOne({ originalUrl: url });
 
@@ -18,7 +18,7 @@ const generateShortUrl = async (req, res) => {
       const newShortLink = await urlSchema.create({
         originalUrl: url,
         shortUrl: shortUrl,
-        userId: id,
+        userId: userId,
         analytics: {
           clicks: 1,
         },
